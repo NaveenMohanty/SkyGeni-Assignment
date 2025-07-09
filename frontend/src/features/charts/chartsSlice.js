@@ -23,20 +23,47 @@ const chartsSlice = createSlice({
         state.loading = false;
       })
       .addCase(fetchIndustryData.rejected, (state, action) => {
+        state.loading = true;
+        state.error = action?.error?.message;
+      })
+
+      .addCase(fetchTeamData.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchTeamData.fulfilled, (state, action) => {
+        state.team = action?.payload?.data;
+        state.loading = false;
+      })
+      .addCase(fetchTeamData.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
       })
 
-      .addCase(fetchTeamData.fulfilled, (state, action) => {
-        state.team = action?.payload?.data;
+      .addCase(fetchCustomerData.pending, (state) => {
+        state.loading = true;
+        state.error = null;
       })
-
       .addCase(fetchCustomerData.fulfilled, (state, action) => {
         state.customer = action?.payload?.data;
+        state.loading = false;
+      })
+      .addCase(fetchCustomerData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
       })
 
+      .addCase(fetchAcvData.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(fetchAcvData.fulfilled, (state, action) => {
         state.acv = action?.payload?.data;
+        state.loading = false;
+      })
+      .addCase(fetchAcvData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
       });
   },
 });

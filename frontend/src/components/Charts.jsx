@@ -1,7 +1,14 @@
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-const BarChart = ({ data = [] }) => {
+const keyMap = {
+  Acct_Industry: 'Industry',
+  Team: 'Team',
+  ACV_Range: 'ACV Range',
+  Cust_Type: 'Customer Type',
+};
+
+const BarChart = ({ data = [], uniqueKey = '' }) => {
   const ref = useRef();
   const tooltipRef = useRef();
 
@@ -50,7 +57,7 @@ const BarChart = ({ data = [] }) => {
         tooltip
           .style('opacity', 1)
           .html(
-            `<strong>Industry:</strong> ${d.Acct_Industry}<br/>
+            `<strong>${keyMap[uniqueKey] || ''}</strong> ${d[uniqueKey] || ''}<br/>
              <strong>Quarter:</strong> ${d.closed_fiscal_quarter}<br/>
              <strong>ACV:</strong> $${d.acv.toLocaleString()}<br/>
              <strong>Count:</strong> ${d.count}`
@@ -61,7 +68,7 @@ const BarChart = ({ data = [] }) => {
       .on('mouseout', () => {
         tooltip.style('opacity', 0);
       });
-  }, [data]);
+  }, [data, uniqueKey]);
 
   return (
     <>
@@ -86,7 +93,7 @@ const BarChart = ({ data = [] }) => {
   );
 };
 
-const DoughnutChart = ({ data = [] }) => {
+const DoughnutChart = ({ data = [], uniqueKey = '' }) => {
   const ref = useRef();
   const tooltipRef = useRef();
 
@@ -118,7 +125,7 @@ const DoughnutChart = ({ data = [] }) => {
         tooltip
           .style('opacity', 1)
           .html(
-            `<strong>Team:</strong> ${d.data.Team || '—'}<br/>
+            `<strong>${keyMap[uniqueKey] || ''}</strong> ${d.data[uniqueKey] || ''}<br/>
              <strong>Quarter:</strong> ${d.data.closed_fiscal_quarter}<br/>
              <strong>ACV:</strong> $${d.data.acv.toLocaleString()}`
           )
@@ -134,8 +141,8 @@ const DoughnutChart = ({ data = [] }) => {
       .attr('transform', (d) => `translate(${arc.centroid(d)})`)
       .attr('text-anchor', 'middle')
       .attr('font-size', '10px')
-      .text((d) => d.data.Team);
-  }, [data]);
+      .text((d) => d.data[uniqueKey]);
+  }, [data, uniqueKey]);
 
   return (
     <>

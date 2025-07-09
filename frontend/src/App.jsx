@@ -11,7 +11,7 @@ import ChartCard from './components/ChartCard';
 
 const App = () => {
   const dispatch = useDispatch();
-  const { industry, team, acv, customer } = useSelector((state) => state.charts);
+  const { industry, team, acv, customer, loading } = useSelector((state) => state.charts);
 
   useEffect(() => {
     dispatch(fetchIndustryData());
@@ -26,10 +26,34 @@ const App = () => {
         Company Dashboard
       </Typography>
       <Grid container spacing={3}>
-        <ChartCard title='Industry Data' data={industry} type='bar' />
-        <ChartCard title='Team Data' data={team} type='doughnut' />
-        <ChartCard title='ACV Range' data={acv} type='bar' />
-        <ChartCard title='Customer Type' data={customer} type='bar' />
+        <ChartCard
+          title='Industry Data'
+          data={industry}
+          type='bar'
+          uniqueKey='Acct_Industry'
+          loading={loading}
+        />
+        <ChartCard
+          title='Team Data'
+          data={team}
+          type='doughnut'
+          uniqueKey='Team'
+          loading={loading}
+        />
+        <ChartCard
+          title='ACV Range'
+          data={acv}
+          type='bar'
+          uniqueKey='ACV_Range'
+          loading={loading}
+        />
+        <ChartCard
+          title='Customer Type'
+          data={customer}
+          type='doughnut'
+          uniqueKey='Cust_Type'
+          loading={loading}
+        />
       </Grid>
     </Container>
   );
