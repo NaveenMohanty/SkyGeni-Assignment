@@ -4,7 +4,7 @@ import { filterFiscalQuarter } from '../helper/index.js';
 const router = express.Router();
 const { loadJSON, handleAPIError } = Utility;
 
-// Data routes
+// Data routes to fetch JSON data from .json files
 router.get('/account-industry', (req, res) => {
   try {
     const fiscal_quarter = req.query.fiscal_quarter || 'all';
