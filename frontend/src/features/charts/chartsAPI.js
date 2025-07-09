@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import API from '../../services/api';
-
+// Api called createAsyncThunk so that it can be set in redux as soon as it is fetched.
 export const fetchIndustryData = createAsyncThunk(
   'charts/fetchIndustryData',
   async (fiscal_quarter = 'all') => {

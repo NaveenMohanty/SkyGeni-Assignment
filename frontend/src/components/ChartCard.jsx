@@ -13,10 +13,11 @@ import {
   fetchTeamData,
 } from '../features/charts/chartsAPI';
 
-const ChartCard = ({ title, data, type, uniqueKey, loader }) => {
+const ChartCard = ({ title, data, type, uniqueKey }) => {
   const [selectedQuarter, setSelectedQuarter] = useState('all');
   const dispatch = useDispatch();
 
+  // Based on uniqueKey the respective api is called to get filter data on Fiscal Quarters
   const handleSelect = (event) => {
     setSelectedQuarter(event.target.value);
     if (uniqueKey === 'Acct_Industry') {
@@ -29,8 +30,7 @@ const ChartCard = ({ title, data, type, uniqueKey, loader }) => {
       dispatch(fetchAcvData(event.target.value));
     }
   };
-  if(loader)
-    return (<Grid size={{ xs: 12, md: 6 }}><SkeletonLoader /></Grid>)
+
   return (
     <Grid size={{ xs: 12, md: 6 }}>
       <Card variant='outlined'>
@@ -50,6 +50,7 @@ const ChartCard = ({ title, data, type, uniqueKey, loader }) => {
               <Typography variant='h6'>{title}</Typography>
             </Grid>
             <Grid size={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+              {/* User can filter chart on Fiscal Quarters */}
               <FormControl variant='standard' sx={{ minWidth: 130 }}>
                 <InputLabel id='demo-simple-select-standard-label'>Fiscal Quarters</InputLabel>
                 <Select

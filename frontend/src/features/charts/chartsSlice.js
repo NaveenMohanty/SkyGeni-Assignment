@@ -13,6 +13,7 @@ const chartsSlice = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
+    // All three stages of api call is handled here and in fulfilled stage the data are stored to state.
     builder
       .addCase(fetchIndustryData.pending, (state) => {
         state.loading = true;
